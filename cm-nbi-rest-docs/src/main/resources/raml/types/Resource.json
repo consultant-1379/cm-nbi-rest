@@ -1,0 +1,18 @@
+{
+  "title": "Resource: Representation of a Managed Object instance",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "attributes": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": {
+    "type": "array",
+    "items": {
+      "type": "object"
+    }
+  }
+}

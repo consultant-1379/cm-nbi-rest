@@ -1,0 +1,11 @@
+<web-app>
+    <display-name>Cm Nbi Rest WebApp</display-name>
+    <context-param>
+        <param-name>resteasy.preferJacksonOverJsonB</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>resteasy.providers</param-name>
+        <param-value>com.ericsson.oss.presentation.cmnbirest.interceptors.RequestInterceptor, com.ericsson.oss.presentation.cmnbirest.resources.v1.JsonPatchEnableFilter</param-value>
+    </context-param>
+</web-app>

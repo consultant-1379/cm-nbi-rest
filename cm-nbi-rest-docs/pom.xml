@@ -1,0 +1,209 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.ericsson.oss.presentation.server.cm</groupId>
+        <artifactId>cm-nbi-rest</artifactId>
+        <version>1.5.4-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>cm-nbi-rest-docs</artifactId>
+    <name>DYNAMIC CM REST NBI: Documentation</name>
+
+    <properties>
+        <versioned.site.dir>${project.build.directory}/site/${project.version}</versioned.site.dir>
+        <latest.site.dir>${project.build.directory}/site/latest</latest.site.dir>
+        <docker.root.folder>${project.basedir}/../docker</docker.root.folder>
+        <api.spec.src.folder>${docker.root.folder}/swagger-ui/api</api.spec.src.folder>
+        <api.spec.target.folder>${project.build.directory}/generated-site/api</api.spec.target.folder>
+    </properties>
+
+    <profiles>
+        <profile>
+            <!-- Triggered only when generating maven site -->
+            <id>site</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+
+            <build>
+                <plugins>
+                    <!-- Uses a docker container to convert REST API specification into a HTML doc -->
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>0.31.0</version>
+                        <configuration>
+                            <logStdout>true</logStdout>
+                            <useColor>true</useColor>
+                            <images>
+                                <image>
+                                    <name>redoc-cli</name>
+                                    <build>
+                                        <dockerFileDir>${docker.root.folder}/redoc</dockerFileDir>
+                                    </build>
+                                    <run>
+                                        <volumes>
+                                            <bind>
+                                                <volume>${api.spec.target.folder}:/api</volume>
+                                            </bind>
+                                        </volumes>
+                                        <workingDir>/api</workingDir>
+                                    </run>
+                                </image>
+                            </images>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>generate-rest-static-docs</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>build</goal>
+<!--                                    <goal>run</goal>-->
+                                    <goal>start</goal>
+<!--                                    <goal>stop</goal>-->
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <!-- Copies the API spec -->
+                            <execution>
+                                <id>copy-api-spec</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${api.spec.target.folder}</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>${api.spec.src.folder}</directory>
+                                            <includes>
+                                                <include>**/*.raml</include>
+                                            </includes>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+
+                            <!-- Copies the generated API spec to the site folder -->
+                            <execution>
+                                <id>copy-generated-api-spec</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${versioned.site.dir}/api</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>${api.spec.target.folder}</directory>
+                                            <includes>
+                                                <include>**/*.html</include>
+                                            </includes>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+
+                            <!-- Copies the versioned site to the latest folder -->
+                            <execution>
+                                <id>create-latest-site</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${latest.site.dir}</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>${versioned.site.dir}</directory>
+                                            <includes>
+                                                <include>**/**</include>
+                                            </includes>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+
+                            <!-- Moves all sites to the docs folder to be packaged in the JAR -->
+                            <execution>
+                                <id>prepare-package-site</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${project.build.outputDirectory}/docs</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>${project.build.directory}/site</directory>
+                                            <includes>
+                                                <include>**/**</include>
+                                            </includes>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- Generate Maven Site -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-site-plugin</artifactId>
+                        <version>3.6</version>
+                        <configuration>
+                            <generateReports>false</generateReports>
+                        </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.apache.maven.doxia</groupId>
+                                <artifactId>doxia-module-markdown</artifactId>
+                                <version>1.7</version>
+                            </dependency>
+                        </dependencies>
+                        <executions>
+                            <execution>
+                                <id>versioned-site</id>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>site</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${versioned.site.dir}</outputDirectory>
+                                </configuration>
+                            </execution>
+
+                            <execution>
+                                <id>deploy-site</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>deploy</goal>
+                                </goals>
+                                <configuration>
+                                    <inputDirectory>${project.build.directory}/site</inputDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                </plugins>
+            </build>
+
+            <distributionManagement>
+                <site>
+                    <id>site</id>
+                    <name>Site</name>
+                    <url>${site.url}</url>
+                </site>
+            </distributionManagement>
+        </profile>
+
+    </profiles>
+
+</project>

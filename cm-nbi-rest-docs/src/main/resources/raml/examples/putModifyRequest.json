@@ -1,0 +1,11 @@
+{
+  "EUtranFrequency": [
+    {
+      "id": "4",
+      "attributes": {
+        "arfcnValueEUtranDl": 11,
+        "userLabel": "newLabel"
+      }
+    }
+  ]
+}

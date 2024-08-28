@@ -1,0 +1,31 @@
+{
+  "EUtranFrequency": {
+    "id": "6",
+    "attributes": {
+      "userLabel": "label",
+      "freqBand": null,
+      "zzzTemporaryList1": [
+        25
+      ],
+      "arfcnValueEUtranDl": 11,
+      "additionalFreqBandList": null,
+      "zzzTemporary1": -2000000000,
+      "zzzTemporary2": -2000000000,
+      "eUtranFrequencyId": "6",
+      "zzzTemporary3": "10",
+      "zzzTemporary4": -2000000000,
+      "mfbiFreqBandIndPrio": false,
+      "extEndcAllowedPlmnListPolicy": null,
+      "zzzTemporary5": -2000000000,
+      "zzzTemporary6": -2000000000,
+      "reservedBy": null,
+      "caOffloadingEnabled": false,
+      "prioAdditionalFreqBandList": [
+        100
+      ],
+      "excludeAdditionalFreqBandList": [
+        89
+      ]
+    }
+  }
+}

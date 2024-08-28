@@ -1,0 +1,91 @@
+{
+  "ENodeBFunction": {
+    "id": "1",
+    "EUtranCellFDD": [
+      {
+        "id": "LTE01dg2ERBS00001-5",
+        "attributes": {
+          "sCellHandlingAtVolteCall": "KEEP_SCELLS",
+          "lbabBarringPriorityLevel": "PRIORITY0"
+        }
+      },
+      {
+        "id": "LTE01dg2ERBS00001-6",
+        "attributes": {
+          "sCellHandlingAtVolteCall": "KEEP_SCELLS",
+          "lbabBarringPriorityLevel": "PRIORITY0"
+        }
+      },
+      {
+        "id": "LTE01dg2ERBS00001-3",
+        "attributes": {
+          "sCellHandlingAtVolteCall": "KEEP_SCELLS",
+          "lbabBarringPriorityLevel": "PRIORITY0"
+        }
+      },
+      {
+        "id": "LTE01dg2ERBS00001-4",
+        "attributes": {
+          "sCellHandlingAtVolteCall": "KEEP_SCELLS",
+          "lbabBarringPriorityLevel": "PRIORITY0"
+        }
+      },
+      {
+        "id": "LTE01dg2ERBS00001-1",
+        "attributes": {
+          "sCellHandlingAtVolteCall": "KEEP_SCELLS",
+          "lbabBarringPriorityLevel": "PRIORITY0"
+        }
+      },
+      {
+        "id": "LTE01dg2ERBS00001-2",
+        "attributes": {
+          "sCellHandlingAtVolteCall": "KEEP_SCELLS",
+          "lbabBarringPriorityLevel": "PRIORITY0"
+        }
+      },
+      {
+        "id": "LTE01dg2ERBS00001-12",
+        "attributes": {
+          "sCellHandlingAtVolteCall": "KEEP_SCELLS",
+          "lbabBarringPriorityLevel": "PRIORITY0"
+        }
+      },
+      {
+        "id": "LTE01dg2ERBS00001-11",
+        "attributes": {
+          "sCellHandlingAtVolteCall": "KEEP_SCELLS",
+          "lbabBarringPriorityLevel": "PRIORITY0"
+        }
+      },
+      {
+        "id": "LTE01dg2ERBS00001-10",
+        "attributes": {
+          "sCellHandlingAtVolteCall": "KEEP_SCELLS",
+          "lbabBarringPriorityLevel": "PRIORITY0"
+        }
+      },
+      {
+        "id": "LTE01dg2ERBS00001-9",
+        "attributes": {
+          "sCellHandlingAtVolteCall": "KEEP_SCELLS",
+          "lbabBarringPriorityLevel": "PRIORITY0"
+        }
+      },
+      {
+        "id": "LTE01dg2ERBS00001-7",
+        "attributes": {
+          "sCellHandlingAtVolteCall": "KEEP_SCELLS",
+          "lbabBarringPriorityLevel": "PRIORITY0"
+        }
+      },
+      {
+        "id": "LTE01dg2ERBS00001-8",
+        "attributes": {
+          "sCellHandlingAtVolteCall": "KEEP_SCELLS",
+          "lbabBarringPriorityLevel": "PRIORITY0"
+        }
+      }
+    ]
+  }
+}

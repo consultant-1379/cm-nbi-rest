@@ -1,0 +1,25 @@
+{
+  "EUtranFrequency": {
+    "id": "TEST_PUT_CREATE",
+    "attributes": {
+      "userLabel": "CreatePUT",
+      "freqBand": null,
+      "zzzTemporaryList1": null,
+      "arfcnValueEUtranDl": 11,
+      "additionalFreqBandList": null,
+      "zzzTemporary1": -2000000000,
+      "eUtranFrequencyId": "TEST_PUT_CREATE",
+      "zzzTemporary2": -2000000000,
+      "zzzTemporary3": null,
+      "mfbiFreqBandIndPrio": false,
+      "zzzTemporary4": -2000000000,
+      "extEndcAllowedPlmnListPolicy": null,
+      "zzzTemporary5": -2000000000,
+      "zzzTemporary6": -2000000000,
+      "reservedBy": null,
+      "caOffloadingEnabled": false,
+      "excludeAdditionalFreqBandList": null,
+      "prioAdditionalFreqBandList": null
+    }
+  }
+}

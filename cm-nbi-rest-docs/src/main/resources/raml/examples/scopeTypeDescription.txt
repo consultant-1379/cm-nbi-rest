@@ -1,0 +1,8 @@
+
+ScopeType selects MOs depending on relationships with Base Managed Object instance. <br>
+- **BASE_ONLY (default)**: reads only the base Managed Object instance. The "scopeLevel" will be ignored if present. <br>
+- **BASE_ALL**: reads the base Managed Object instance and all of its descendant MOs. The "scopeLevel" will be ignored if present. <br>
+- **BASE_NTH_LEVEL**: reads all MOs on the level (indicated by the "scopeLevel") below the base Managed Object instance. <br>
+- **BASE_SUBTREE**: reads the base Managed Object instance and all of its descendant MOs down to and including the MOs on the level indicated by the "scopeLevel" parameter. <br>
+
+

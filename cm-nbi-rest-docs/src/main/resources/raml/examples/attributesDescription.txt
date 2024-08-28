@@ -1,0 +1,4 @@
+Identifies the attributes to be returned. The following cases apply : <br>
+- parameter present and value not empty: attributes matching the name are returned <br>
+- parameter absent: all attributes are returned <br>
+- parameter empty ( "attributes=" ): only the identifier is returned. <br>

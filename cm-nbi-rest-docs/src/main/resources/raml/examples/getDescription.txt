@@ -1,0 +1,15 @@
+HTTP GET method executes a query to retrieve Managed Object instances with their attributes. <br>
+<p>
+The read operation supports: <br>
+- scoping ( identification of MOs and children ) <br>
+- filtering ( selection of Managed Object whose attributes satisfy a provided condition ) <br>
+- output attribute filtering ( display only wanted attributes)  <br>
+</p>
+<p>
+The target URI identifies the Base Managed Object instance; it is used as starting point for the selection of MOs to be returned. <br>
+</p>
+<br>
+
+GET request example:
+
+        https://<customer-domain>/enm-nbi/cm/v1/data/SubNetwork=Europe,ManagedElement=LTE01dg2ERBS00001,ENodeBFunction=1?scopeType=BASE_ALL&filter=//EUtranCellFDD&attributes=lbabBarringPriorityLevel,sCellHandlingAtVolteCall

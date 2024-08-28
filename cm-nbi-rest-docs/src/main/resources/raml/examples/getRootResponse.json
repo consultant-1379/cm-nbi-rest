@@ -1,0 +1,76 @@
+{
+  "SubNetwork": {
+    "id": "Europe",
+    "SubNetwork": [{
+      "id": "Ireland",
+      "SubNetwork": [{
+        "id": "NETSimW",
+        "ManagedElement": [{
+          "id": "LTE01dg2ERBS00040",
+          "ENodeBFunction": [{
+            "id": "1",
+            "EUtranCellFDD": [{
+              "id": "LTE01dg2ERBS00040-1",
+              "Cdma2000FreqBandRelation": [{
+                "id": "1",
+                "attributes": {
+                  "userLabel": "LTE01dg2ERBS00040",
+                  "threshXHighHrpd": 63,
+                  "threshXLowHrpd": 63,
+                  "cdma2000FreqBandRelationId": "1",
+                  "cdma2000FreqBandRef": "SubNetwork=Europe,SubNetwork=Ireland,SubNetwork=NETSimW,ManagedElement=LTE01dg2ERBS00040,ENodeBFunction=1,Cdma2000Network=1,Cdma2000FreqBand=1",
+                  "cellReselectionPriority": 2
+                }
+              }]
+            }, {
+              "id": "LTE01dg2ERBS00040-2",
+              "Cdma2000FreqBandRelation": [{
+                "id": "1",
+                "attributes": {
+                  "userLabel": "LTE01dg2ERBS00040",
+                  "threshXHighHrpd": 63,
+                  "threshXLowHrpd": 63,
+                  "cdma2000FreqBandRelationId": "1",
+                  "cdma2000FreqBandRef": "SubNetwork=Europe,SubNetwork=Ireland,SubNetwork=NETSimW,ManagedElement=LTE01dg2ERBS00040,ENodeBFunction=1,Cdma2000Network=1,Cdma2000FreqBand=1",
+                  "cellReselectionPriority": 2
+                }
+              }]
+            }]
+          }]
+        }, {
+          "id": "LTE01dg2ERBS00020",
+          "ENodeBFunction": [{
+            "id": "1",
+            "EUtranCellFDD": [{
+              "id": "LTE01dg2ERBS00020-6",
+              "Cdma2000FreqBandRelation": [{
+                "id": "1",
+                "attributes": {
+                  "userLabel": "LTE01dg2ERBS00020",
+                  "threshXHighHrpd": 63,
+                  "threshXLowHrpd": 63,
+                  "cdma2000FreqBandRelationId": "1",
+                  "cdma2000FreqBandRef": "SubNetwork=Europe,SubNetwork=Ireland,SubNetwork=NETSimW,ManagedElement=LTE01dg2ERBS00020,ENodeBFunction=1,Cdma2000Network=1,Cdma2000FreqBand=1",
+                  "cellReselectionPriority": 2
+                }
+              }]
+            },	{
+              "id": "LTE01dg2ERBS00020-2",
+              "Cdma2000FreqBandRelation": [{
+                "id": "1",
+                "attributes": {
+                  "userLabel": "LTE01dg2ERBS00020",
+                  "threshXHighHrpd": 63,
+                  "threshXLowHrpd": 63,
+                  "cdma2000FreqBandRelationId": "1",
+                  "cdma2000FreqBandRef": "SubNetwork=Europe,SubNetwork=Ireland,SubNetwork=NETSimW,ManagedElement=LTE01dg2ERBS00020,ENodeBFunction=1,Cdma2000Network=1,Cdma2000FreqBand=1",
+                  "cellReselectionPriority": 2
+                }
+              }]
+            }]
+          }]
+        }]
+      }]
+    }]
+  }
+}

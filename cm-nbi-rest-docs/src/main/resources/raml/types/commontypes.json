@@ -1,0 +1,45 @@
+{
+  "ScopeType": {
+    "type": "string",
+    "enum": [
+      "BASE_ONLY",
+      "BASE_NTH_LEVEL",
+      "BASE_SUBTREE",
+      "ASE_ALL"
+    ]
+  },
+  "Scope": {
+    "type": "object",
+    "description": "AAA Scope AAA",
+    "properties": {
+      "scopeType": {
+        "$ref": "#/definitions/ScopeType"
+      },
+      "scopeLevel": {
+        "type": "integer"
+      }
+
+    }
+  },
+  "ErrorResponse": {
+    "description": "Default schema for the response message body in case the request\n  is not successful.",
+    "type": "object",
+    "properties": {
+      "error": {
+        "type": "object",
+          "properties": {
+            "errorInfo": {
+              "type": "string"
+            }
+          }
+      }
+    }
+  },
+  "Filter": {
+    "description": " FFFF Filter!! FFFF",
+    "type": "string'"
+  },
+  "Uri": {
+    "type": "string'"
+  }
+}

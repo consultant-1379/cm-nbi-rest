@@ -1,0 +1,17 @@
+In this example an existing "EUtranFrequency=4" instance is updated changing the value for some of its attributes.
+- The target URI specifies the FDN of the EUtranFrequency instance.
+    https://<customer-domain>/enm-nbi/cm/v1/data/SubNetwork=Europe/ManagedElement=LTE01dg2ERBS00001/ENodeBFunction=1/EUtraNetwork=1/EUtranFrequency=4
+- The "id" value is the EUtranFrequency identifier (eUtranFrequencyId=4).
+- "attributes" is the  list of EUtranFrequency attributes to be modified.
+
+{
+  "EUtranFrequency": [
+    {
+      "id": "4",
+      "attributes": {
+        "arfcnValueEUtranDl": 11,
+        "userLabel": "Modify_PUT"
+      }
+    }
+  ]
+}

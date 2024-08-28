@@ -1,0 +1,312 @@
+#%RAML 1.0
+title: Dynamic CM REST NBI for CRUD operations
+version: v1
+protocols: [ HTTPS ]
+baseUri: https://{customer-domain}/enm-nbi/cm/{version}
+
+types:
+  Resource: !include /types/Resource.json
+  PatchOperations: !include /types/PatchOperations.json
+
+#/enm-nbi/cm/v1:
+#  displayName: !
+#    The  Dynamic CM REST NBI feature offers a set of interfaces for external machine systems <br>
+#    to perform CM-related operations towards nodes managed by ENM. <br>
+#    The  query, create, update, modify, delete and action operations are allowed. <br>
+/data:
+  get:
+    description: !include examples/getRootDescription.txt
+    queryParameters:
+      scopeType:
+        description: !include examples/scopeTypeGetRootDescription.txt
+        enum: [ BASE_ONLY | BASE_ALL | BASE_NTH_LEVEL | BASE_SUBTREE ]
+        required: true
+        example: "scopeType=BASE_ALL"
+      scopeLevel:
+        description: >-
+          In case the Scope Type is BASE_NTH_LEVEL or BASE_SUBTREE the Scope Level must be valued <br>
+          ( refer to scope type parameter )
+        type: integer
+        required: false
+        example: "scopeType=BASE_NTH_LEVEL&scopeLevel=1"
+      filter:
+        description: >-
+          The parameter must be applied to filter the scoped Managed Object instances. Only instances passing the filter criteria will be fetched.
+        type: string
+        required: true
+        example: |
+          filter=/SubNetwork/ManagedElement/ENodeBFunction/Cdma2000Network/Cdma2000FreqBand <br>
+          filter=//EUtranCellFDD[attributes/pciConflictCell/mnc!=2]
+          filter=//EutrancellFDD[attributes/administrativeState=LOCKED and attributes/cellRange<15]
+          filter=//ManagedElement[attributes/neType=RadioNode]//EutrancellFDD[attributes/administrativeState=LOCKED]
+      attributes:
+        description: !include examples/attributesDescription.txt
+        type: string
+        required: false
+        example: "attributes=userLabel"
+      fields:
+        description: !include examples/fieldsDescription.txt
+        type: string
+        required: false
+        example: "fields=attributes/changeNotification/changeNotificationSIB13,attributes/changeNotification/changeNotificationSIB24"
+    responses:
+      200:
+        description: >-
+          Success case ("200 OK"). <br>
+          The MO instances identified in the request for retrieval are returned
+          in the response message body. <br>
+          In case the attributes or fields query parameters are used, only the selected attributes or sub-attributes are
+          returned. <br> 
+          The response message body is constructed according to the
+          hierarchical response construction method (TS 32.158 [15]).
+        body:
+          application/json:
+            type: Resource
+            example: !include examples/getRootResponse.json
+  post:
+    description: !include examples/postRootDescription.txt
+    body:
+      application/json:
+        description: "Schema of Resource"
+        type: Resource
+        examples:
+          Create SubNetwork=World instance: !include examples/postRootRequest.json
+    responses:
+      201:
+        description: >-
+          Success case ("201 Created"). <br>
+          This status code shall be returned when the Managed Object instance is created. <br>
+          The representation of the created instance is returned in the response
+          message body.
+        body:
+          application/json:
+            type: Resource
+            examples:
+              MO instance SubNetwork=World successfully created: !include examples/postRootResponse.json
+/data/{URI-LDN-first-part}/{className}={id}:
+  uriParameters:
+    URI-LDN-first-part:
+      description: "See clause 4.4.2 of TS 32.158"
+      type: string
+    className:
+      type: string
+    id:
+      type: string
+  put:
+    description: !include examples/putDescription.txt
+    body:
+      application/json:
+        description: "Schema of Resource"
+        type: Resource
+        examples:
+          Create EUtranFrequency=6 instance: !include examples/putCreateRequest.json
+          Modify attributes of existing EUtranFrequency=4 instance: !include examples/putModifyRequest.json
+    responses:
+      200:
+        description: >-
+          Success case ("200 OK").<br>
+          This status code shall be returned when the Managed Object instance is replaced, and
+          when the replaced Managed Object instance representation is not identical to the Managed Object 
+          representation in the request. <br>
+          The representation of the updated Managed Object instance is returned in the response
+          message body.
+        body:
+          application/json:
+            type: Resource
+            examples:
+              MO instance EUtranFrequency=4 successfully modified: !include examples/putModifyResponse.json
+      201:
+        description: >-
+          Success case ("201 Created"). <br>
+          This status code shall be returned when the Managed Object instance is created. <br>
+          The representation of the created instance is returned in the response
+          message body.
+        body:
+          application/json:
+            type: Resource
+            examples:
+              MO instance EUtranFrequency=6 successfully created: !include examples\putCreateResponse.json
+      204:
+        description: >-
+          Success case ("204 No Content"). <br>
+          This status code may be returned only when the replaced Managed Object instance
+          representation is identical to the representation in the request.
+          The response has no message body.
+
+  post:
+    description: !include examples/postDescription.txt
+    body:
+      application/json:
+        description: "Schema of Resource"
+        type: Resource
+        examples:
+          Create EUtranFrequency=6 instance: !include examples\postRequest.json
+    responses:
+      201:
+        description: >-
+          Success case ("201 Created"). <br>
+          This status code shall be returned when the Managed Object instance is created. <br>
+          The representation of the created instance is returned in the response
+          message body.
+        body:
+          application/json:
+            type: Resource
+            examples:
+              MO instance EUtranFrequency=6 successfully created: !include examples\postResponse.json
+  get:
+    description: !include examples/getDescription.txt
+    queryParameters:
+      scopeType:
+        description: !include examples/scopeTypeDescription.txt
+        enum: [ BASE_ONLY | BASE_ALL | BASE_NTH_LEVEL | BASE_SUBTREE ]
+        required: false
+        example: "scopeType=BASE_ALL"
+      scopeLevel:
+        description: >-
+          In case the Scope Type is BASE_NTH_LEVEL or BASE_SUBTREE the Scope Level must be valued <br>
+          ( refer to scope type parameter )
+        type: integer
+        required: false
+        example: "scopeType=BASE_NTH_LEVEL&scopeLevel=1"
+      filter:
+        description: >-
+          The parameter may be applied to filter the scoped Managed Object instances. Only instances passing the filter criteria will be fetched. <br>
+          **Note:** filter is required if Base Managed Object is an instance of SubNetwork.
+        type: string
+        required: false
+        example: |
+          filter=//EUtranCellFDD
+          filter=//EUtranCellFDD/EUtranFreqRelation
+          filter=//EnodebFunction[attributes/iuaBbmResourceLimit > 10]
+          filter=//EUtranCellFDD[attributes/pciConflictCell/mnc!=2]
+          filter=//EutrancellFDD[attributes/administrativeState=LOCKED and attributes/cellRange<15]
+          filter=//ManagedElement[attributes/neType=RadioNode]//EutrancellFDD[attributes/administrativeState=LOCKED]
+      attributes:
+        description: !include examples/attributesDescription.txt
+        type: string
+        required: false
+        example: "attributes=userLabel"
+      fields:
+        description: !include examples/fieldsDescription.txt
+        type: string
+        required: false
+        example: "fields=attributes/changeNotification/changeNotificationSIB13,attributes/changeNotification/changeNotificationSIB24"
+    responses:
+      200:
+        description: >-
+          Success case ("200 OK"). <br>
+          The MO instances identified in the request for retrieval are returned
+          in the response message body. <br>
+          In case the attributes or fields query parameters are used, only the selected attributes or sub-attributes are
+          returned. <br> 
+          The response message body is constructed according to the
+          hierarchical response construction method (TS 32.158 [15]).
+        body:
+          application/json:
+            type: Resource
+            example: !include examples/getResponse_idAndAttributes.json
+  patch:
+    description: !include examples/patchDescription.txt
+    body:
+      application/json-patch+json:
+        type: PatchOperations
+        examples:
+          Patch on single MO: !include examples/patchJsonPatchJsonRequest.json
+      application/3gpp-json-patch+json:
+        type: PatchOperations
+        examples:
+          Patch on multiple MOs: !include examples/patch3gppJsonPatchJsonRequest.json
+    responses:
+      200:
+        description: >-
+          Success case ("200 OK"). <br>
+          This status code is returned when the updated Managed Object representations
+          shall be returned for some reason. <br>
+          The MO representations are returned in the response message body. <br>
+          The response message body is constructed according to the hierarchical response
+          construction method (TS 32.158 [15]) <br>
+        body:
+          application/json:
+            type: Resource
+            examples:
+              Patch on single MO successfully executed: !include examples/patchJsonPatchJsonResponse.json
+              Patch on multiple MOs successfully executed: !include examples/patch3gppJsonPatchJsonResponse.json
+
+  delete:
+    description: !include examples/deleteDescription.txt
+    queryParameters:
+      scopeType:
+        description: !include examples/scopeTypeDeleteDescription.txt
+        enum: [ BASE_ONLY | BASE_ALL | BASE_NTH_LEVEL | BASE_SUBTREE ]
+        required: false
+        example: "scopeType=BASE_ALL"
+      scopeLevel:
+        description: >-
+          In case the Scope Type is BASE_NTH_LEVEL the Scope Level must be valued <br>
+          ( refer to scope type parameter )
+        type: integer
+        required: false
+        example: "scopeType=BASE_NTH_LEVEL&scopeLevel=1"
+      filter:
+        description: >-
+          The parameter may be applied to filter the scoped Managed Object instances. Only instances passing the filter criteria will be fetched.
+        type: string
+        required: false
+        example: |
+          filter=/SubNetwork/ManagedElement/ENodeBFunction/Cdma2000Network/Cdma2000FreqBand <br>
+          filter=//EUtranCellFDD[attributes/pciConflictCell/mnc!=2]
+          filter=//EutrancellFDD[attributes/administrativeState=LOCKED and attributes/cellRange<15]
+          filter=//ManagedElement[attributes/neType=RadioNode]//EutrancellFDD[attributes/administrativeState=LOCKED]
+    responses:
+      200:
+        description: >-
+          Success case ("200 OK"). <br>
+          This status code shall be returned, when one or multiple Managed Object instances are deleted.
+          The URIs of the deleted instances are returned in the response message body.
+        body:
+          application/json:
+            type: array
+            items: string
+            examples:
+              Single MO deleted: !include examples/deleteResponse.txt
+/action/{URI-LDN-first-part}/{className}={id}:
+  uriParameters:
+    URI-LDN-first-part:
+      description: "See clause 4.4.2 of TS 32.158"
+      type: string
+    className:
+      type: string
+    id:
+      type: string
+  patch:
+    description: >-
+      With HTTP PATCH it is possible to execute a modeled "action" on a specific Managed Object instance.
+    queryParameters:
+      action:
+        description: >-
+          The name of the modeled action.
+        type: string
+        required: true
+        example: "action=createBackup"
+    body:
+      application/json:
+        description: >-
+          A list of name/value pairs specifying the action attribute identifiers and their values
+        type: object
+        examples:
+          action parameters: !include examples/actionRequest.json
+    responses:
+      200:
+        description: >-
+          Success case ("200 OK"). <br>
+          This status code is returned when the action has been successfully executed. <br>
+          The action execution result is returned in the response message body.
+        body:
+          application/json:
+            type: object
+            examples:
+              Action Result: !include examples/actionResponse.json
+      204:
+        description: >-
+          Success case ("204 No Content"). <br>
+          This status code may be returned only when the action response has no message body. <br>

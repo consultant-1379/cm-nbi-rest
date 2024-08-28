@@ -1,0 +1,8 @@
+{
+   "EUtranCellFDD": {
+      "id": "2",
+      "attributes": {
+         "acBarringSkipForSms": true
+      }
+   }
+}

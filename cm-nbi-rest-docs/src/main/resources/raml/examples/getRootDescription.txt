@@ -1,0 +1,10 @@
+HTTP GET method executes a network-wide query to retrieve Managed Object instances with their attributes. <br>
+The read operation supports: <br>
+- scoping ( identification of MOs and children )<br>
+- filtering ( selection of Managed Objects whose attributes satisfy a provided condition ) <br>
+- output attribute filtering ( display only wanted attributes) <br>
+
+<br>
+GET request example:
+
+        https://customer-domain/enm-nbi/cm/v1/data?scopeType=BASE_ALL&filter=//Cdma2000FreqBand&attributes=userLabel

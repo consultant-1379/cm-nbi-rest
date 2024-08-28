@@ -1,0 +1,47 @@
+{
+  "ENodeBFunction": {
+    "id": "1",
+    "EUtraNetwork": [
+      {
+        "id": "1",
+        "EUtranFrequency": [
+          {
+            "id": "10",
+            "attributes": {
+              "mfbiFreqBandIndPrio": true
+            }
+          },
+          {
+            "id": "8",
+            "attributes": {
+              "userLabel": "label",
+              "freqBand": null,
+              "zzzTemporaryList1": [
+                25
+              ],
+              "arfcnValueEUtranDl": 91,
+              "additionalFreqBandList": null,
+              "zzzTemporary1": -2000000000,
+              "eUtranFrequencyId": "8",
+              "zzzTemporary2": -2000000000,
+              "zzzTemporary3": "10",
+              "zzzTemporary4": -2000000000,
+              "extEndcAllowedPlmnListPolicy": null,
+              "mfbiFreqBandIndPrio": false,
+              "zzzTemporary5": -2000000000,
+              "zzzTemporary6": -2000000000,
+              "reservedBy": null,
+              "caOffloadingEnabled": false,
+              "prioAdditionalFreqBandList": [
+                100
+              ],
+              "excludeAdditionalFreqBandList": [
+                89
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

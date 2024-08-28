@@ -1,0 +1,522 @@
+openapi: 3.0.1
+info:
+  title: Dynamic CM REST NBI for CRUD operations
+  version: 1.0.0
+  description: >-
+    The  Dynamic CM REST NBI  feature offers a set of interfaces for external machine systems <br>
+    to perform CM-related operations towards nodes managed by ENM. <br>
+    The  query,create,update,modify and delete operations are allowed. <br>
+
+servers:
+  - url: 'https://{customer-domain}/enm-nbi/cm/{version}'
+    description: >-
+      The URI identifies the location of target resource of the REST operation. <br>
+      The resource is identified by a concatenation  of RDN separated by a  slash / <br>
+      ( e.g . https://atvtsXXXX.athtem-eei-ericsson.se/enm-nbi/cm/v1) <br>
+    variables:
+      customer-domain:
+        default: ''
+      version:
+        default: 'v1'
+
+paths:
+  /data:
+    get:
+      summary: Reads one or multiple resources
+      description: >-
+        With HTTP GET resources are read. The resources to be retrieved are
+        identified with the target URI. The attributes and fields parameter
+        of the query components allow to select the resource properties to be returned.
+      parameters:
+        - name: scope
+          in: query
+          description: >-
+            This parameter extends the set of targeted resources beyond the base
+            resource identified with the path component of the URI. No scoping
+            mechanism is specified in the present document.
+          required: true
+          schema:
+            $ref: '#/components/schemas/Scope'
+          style: form
+          explode: true
+        - name: filter
+          in: query
+          description: >-
+            This parameter reduces the targeted set of resources by applying a
+            filter to the scoped set of resource representations. Only resource
+            representations for which the filter construct evaluates to "true"
+            are targeted. No filter language is specified in the present
+            document.
+          required: true
+          schema:
+            $ref: '#/components/schemas/Filter'
+        - name: attributes
+          in: query
+          description: >-
+            This parameter specifies the attributes of the scoped resources that
+            are returned.
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: false
+        - name: fields
+          in: query
+          description: >-
+            This parameter specifies the attribute field of the scoped resources
+            that are returned.
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: false
+      responses:
+        '200':
+          description: >-
+            Success case ("200 OK").
+            The resources identified in the request for retrieval are returned
+            in the response message body. In case the attributes or fields query
+            parameters are used, only the selected attributes or sub-attributes are
+            returned. The response message body is constructed according to the
+            hierarchical response construction method (TS 32.158 [15]).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resource'
+        default:
+          description: Error case.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      summary: Creates a complete single resource if it does not exist
+      description: >-
+        With HTTP POST a complete resource is created if it does not exist. 
+        The target URI identifies the parent resource of the new resource to be created.
+        The target resource is identified in the body.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Resource'
+      responses:
+        '201':
+          description: >-
+            Success case ("201 Created").
+            This status code shall be returned when the resource is created.
+            The representation of the created resource is returned in the response
+            message body.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resource'
+        default:
+          description: Error case.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+
+  /data/{URI-LDN-first-part}/{className}={id}:
+    parameters:
+      - name: URI-LDN-first-part
+        description: See clause 4.4.2 of TS 32.158
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: className
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      summary: Replaces a complete single resource or creates it if it does not exist
+      description: >-
+        With HTTP PUT a complete resource is replaced or created if it does not
+        exist. The target resource is identified by the target URI.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Resource'
+      responses:
+        '200':
+          description: >-
+            Success case ("200 OK").
+            This status code shall be returned when the resource is replaced, and
+            when the replaced resource representation is not identical to the resource
+            representation in the request.
+            This status code may be retourned when the resource is updated and when the
+            updated resource representation is identical to the resource representation
+            in the request.
+            The representation of the updated resource is returned in the response
+            message body.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resource'
+        '201':
+          description: >-
+            Success case ("201 Created").
+            This status code shall be returned when the resource is created.
+            The representation of the created resource is returned in the response
+            message body.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resource'
+        '204':
+          description: >-
+            Success case ("204 No Content").
+            This status code may be returned only when the replaced resource
+            representation is identical to the representation in the request.
+            The response has no message body.
+        default:
+          description: Error case.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      summary: Creates a complete single resource if it does not exist
+      description: >-
+        With HTTP POST a complete resource is created if it does not exist. 
+        The target URI identifies the parent resource of the new resource to be created.
+        The target resource is identified in the body.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Resource'
+      responses:
+        '201':
+          description: >-
+            Success case ("201 Created").
+            This status code shall be returned when the resource is created.
+            The representation of the created resource is returned in the response
+            message body.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resource'
+        default:
+          description: Error case.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      summary: Reads one or multiple resources
+      description: >-
+        With HTTP GET resources are read. The resources to be retrieved are
+        identified with the target URI. The attributes and fields parameter
+        of the query components allow to select the resource properties to be returned.
+      parameters:
+        - name: scope
+          in: query
+          description: >-
+            This parameter extends the set of targeted resources beyond the base
+            resource identified with the path component of the URI. No scoping
+            mechanism is specified in the present document.
+          required: false
+          schema:
+            $ref: '#/components/schemas/Scope'
+          style: form
+          explode: true
+        - name: filter
+          in: query
+          description: >-
+            This parameter reduces the targeted set of resources by applying a
+            filter to the scoped set of resource representations. Only resource
+            representations for which the filter construct evaluates to "true"
+            are targeted. No filter language is specified in the present
+            document.
+          required: false
+          schema:
+            $ref: '#/components/schemas/Filter'
+        - name: attributes
+          in: query
+          description: >-
+            This parameter specifies the attributes of the scoped resources that
+            are returned.
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: false
+        - name: fields
+          in: query
+          description: >-
+            This parameter specifies the attribute field of the scoped resources
+            that are returned.
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: false
+      responses:
+        '200':
+          description: >-
+            Success case ("200 OK").
+            The resources identified in the request for retrieval are returned
+            in the response message body. In case the attributes or fields query
+            parameters are used, only the selected attributes or sub-attributes are
+            returned. The response message body is constructed according to the
+            hierarchical response construction method (TS 32.158 [15]).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resource'
+        default:
+          description: Error case.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    patch:
+      summary: Patches one or multiple resources
+      description: >-
+        With HTTP PATCH resources are created, updated or deleted. The resources
+        to be modified are identified with the target URI (base resource) and
+        the patch document included in the request message body. <br>
+      requestBody:
+        description: >-
+          The request body describes changes to be made to the target resources.
+          The following patch media types are available
+            - "application/json-patch+json" (RFC 6902)
+            - "application/3gpp-json-patch+json" (TS 32.158)
+        required: true
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/PatchOperations'
+          application/3gpp-json-patch+json:
+            schema:
+              $ref: '#/components/schemas/PatchOperations'
+      responses:
+        '200':
+          description: >-
+            Success case ("200 OK").
+            This status code is returned when the updated the resource representations
+            shall be returned for some reason.
+            The resource representations are returned in the response message body. The
+            response message body is constructed according to the hierarchical response
+            construction method (TS 32.158 [15])
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resource'
+        default:
+          description: Error case.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      summary: Deletes one or multiple resources
+      description: >-
+        With HTTP DELETE resources are deleted. The resources to be deleted are
+        identified with the target URI.
+      parameters:
+        - name: scope
+          in: query
+          description: >-
+            This parameter extends the set of targeted resources beyond the base
+            resource identified with the path component of the URI. No scoping
+            mechanism is specified in the present document.
+          required: false
+          schema:
+            $ref: '#/components/schemas/Scope'
+          style: form
+          explode: true
+        - name: filter
+          in: query
+          description: >-
+            This parameter reduces the targeted set of resources by applying a
+            filter to the scoped set of resource representations. Only resources
+            representations for which the filter construct evaluates to "true"
+            are returned. No filter language is specified in the present
+            document.
+          required: false
+          schema:
+            $ref: '#/components/schemas/Filter'
+      responses:
+        '200':
+          description: >-
+            Success case ("200 OK").
+            This status code shall be returned, when query parameters are present in
+            the request and one or multiple resources are deleted.
+            The URIs of the deleted resources are returned in the response message body.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Uri'
+        default:
+          description: Error case.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /action/{URI-LDN-first-part}/{className}={id}:
+    parameters:
+      - name: URI-LDN-first-part
+        description: See clause 4.4.2 of TS 32.158
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: className
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    patch:
+      summary: Patch one resource executing an action
+      description: >-
+        With HTTP PATCH it is possible to execute a modeled "action" on a specific resource.
+      parameters:
+        - name: action
+          in: query
+          description: >-
+            The name of the modeled action.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+          The request body describes the action parameters.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            examples:
+              gino:
+                summary: summaryBody
+                value: '{"input": {"key1": "Questo  il mio valore", "key2": "aaaValue"}}'
+      responses:
+        '200':
+          description: >-
+            Success case ("200 OK").
+            This status code is returned when the action has been successfully executed.
+            The action execution result is returned in the response message body.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  output:
+                    type: object
+        '204':
+          description: >-
+            Success case ("204 No Content").
+            This status code may be returned only when the action response has no message body.
+        default:
+          description: Error case.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    ScopeType:
+      type: string
+      enum:
+        - BASE_ONLY
+        - BASE_NTH_LEVEL
+        - BASE_SUBTREE
+        - BASE_ALL
+    Scope:
+      type: object
+      properties:
+        scopeType:
+          $ref: '#/components/schemas/ScopeType'
+        scopeLevel:
+          type: integer
+    Resource:
+      type: object
+      properties:
+        id:
+          type: string
+        attributes:
+          type: object
+      additionalProperties:
+        type: array
+        items:
+          type: object
+
+    ErrorResponse:
+      description: >-
+        Default schema for the response message body in case the request
+        is not successful.
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            errorInfo:
+              type: string
+    Filter:
+      type: string
+    Uri:
+      type: string
+
+    PatchOperationType:
+      type: string
+      enum:
+        - add
+        - replace
+        - remove
+
+    PatchOperations:
+      type: array
+      items:
+        type: object
+        properties:
+          op:
+            $ref: '#/components/schemas/PatchOperationType'
+          path:
+            type: string
+          value:
+            oneOf:
+              - type: object
+                properties:
+                  id:
+                    type: string
+                  attributes:
+                    type: object
+              - type: object
+
+
+
+
+
+
+

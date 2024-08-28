@@ -1,0 +1,33 @@
+[
+  {
+    "op": "add",
+    "path": "/EUtraNetwork=1/EUtranFrequency=8",
+    "value": {
+      "id": "8",
+      "attributes": {
+        "userLabel": "label",
+        "zzzTemporaryList1": ["25"],
+        "arfcnValueEUtranDl": 91,
+        "zzzTemporary1": -2000000000,
+        "zzzTemporary2": -2000000000,
+        "zzzTemporary3": 10,
+        "mfbiFreqBandIndPrio": false,
+        "zzzTemporary4": -2000000000,
+        "zzzTemporary5": -2000000000,
+        "zzzTemporary6": -2000000000,
+        "caOffloadingEnabled": false,
+        "prioAdditionalFreqBandList": ["100"],
+        "excludeAdditionalFreqBandList": ["89"]
+      }
+    }
+  },
+  {
+    "op": "replace",
+    "path": "/EUtraNetwork=1/EUtranFrequency=10#/attributes/mfbiFreqBandIndPrio",
+    "value":  true
+  },
+  {
+    "op": "remove",
+    "path": "/EUtranCellFDD=2"
+  }
+]

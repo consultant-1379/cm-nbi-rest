@@ -1,0 +1,18 @@
+<p>
+    With HTTP DELETE method Managed Object instances are deleted. <br>
+    The delete operation supports: <br>
+    - deletion of a single MO. <br>
+    - deletion of multiple MOs across a single node. <br>
+    - deletion of an MO with all descendant MOs.
+</p>
+<br>
+<p>
+The target URI identifies the base Managed Object to be deleted. <br>
+</p>
+<br>
+URI example:
+
+        https://customer-domain/enm-nbi/cm/v1/data/SubNetwork=Europe/ManagedElement=LTE01dg2ERBS00001/ENodeBFunction=1/EUtraNetwork=1/EUtranFrequency=4
+
+
+

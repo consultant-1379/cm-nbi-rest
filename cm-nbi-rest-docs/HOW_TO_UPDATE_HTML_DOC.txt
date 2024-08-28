@@ -1,0 +1,12 @@
+To produce html doc page we use REST2HTML ericsson tool at https://elib.internal.ericsson.com/
+This tool is able to accept 2 different formats packaged as zip file:
+- open api (as single yaml file) 
+- raml (as single yaml file + its subfolders/files)
+
+Cause raml format seems obsolete, we decided to describe our CM-REST- NBI interface as single open api file (written in yaml format ttps://swagger.io/specification/) 
+We are able to validate it via IDEA plugin or via Sqagger onlide editor https://editor.swagger.io/
+
+Note: due to REST2HTML conversion problem, we had to generate static html file starting from raml format
+So when we change openapi, to produce new html doc file, we have to:
+1) update raml file accordingly
+2) generarate new html file with REST2HTML tool using that raml file

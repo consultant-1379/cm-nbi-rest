@@ -1,0 +1,3 @@
+[
+  "SubNetwork=Europe/ManagedElement=LTE01dg2ERBS00001/ENodeBFunction=1/EUtraNetwork=1/EUtranFrequency=4"
+]

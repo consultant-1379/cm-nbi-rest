@@ -1,0 +1,26 @@
+<p>
+    With HTTP PUT method a complete resource representing a Managed Object instance is replaced or created if it does not
+      exist. <br>
+    <p>
+        If the MO does not exist: <br>
+        &emsp;The target URI identifies the new instance to be created. <br>
+        &emsp;The message body shall carry the complete representation of the instance to be created: <br>
+        &emsp;- a list of name/value pairs specifying attribute identifiers and their values; the list must include all the mandatory attributes. <br>
+     </p>
+     <p>
+          If the MO already exists: <br>
+          &emsp;The target URI identifies the instance to be modified. <br>
+          &emsp;The message body contains the representation of the instance to be modified: <br>
+          &emsp;- a list of name/value pairs specifying attribute identifiers to be modified and their new values. <br>
+     </p>
+</p>
+<br>
+URI to Create the EUtranFrequency=6 instance, child of EUtraNetwork=1:
+
+          https://customer-domain/enm-nbi/cm/v1/data/SubNetwork=Europe/ManagedElement=LTE01dg2ERBS00001/ENodeBFunction=1/EUtraNetwork=1/EUtranFrequency=6
+
+<br>
+URI to Modify the value of some attributes of the existing EUtranFrequency=4 instance:
+
+          https://customer-domain/enm-nbi/cm/v1/data/SubNetwork=Europe/ManagedElement=LTE01dg2ERBS00001/ENodeBFunction=1/EUtraNetwork=1/EUtranFrequency=4
+

@@ -1,0 +1,51 @@
+Example 1 - Creation of a resource
+- In this example a new "EUtranFrequency" instance is created.
+- The target URI specifies the FDN of the new EUtranFrequency instance.
+    https://<customer-domain>/enm-nbi/cm/v1/data/SubNetwork=Europe/ManagedElement=LTE01dg2ERBS00001/ENodeBFunction=1/EUtraNetwork=1/EUtranFrequency=6
+- The "id" value will be assigned to eUtranFrequencyId  (EUtranFrequency=6 will be created).
+- "attributes" is the list of EUtranFrequency attributes with their values.
+  The list must include all the mandatory attributes.
+  For the optional attributes not provided, the default value specified in the definition of EUtranFrequency MO
+  will be assigned.
+
+{
+  "EUtranFrequency": {
+    "id": "6",
+    "attributes": {
+      "userLabel": "Create_PUT",
+      "zzzTemporaryList1": ["25"],
+      "arfcnValueEUtranDl": 11,
+      "zzzTemporary1": -2000000000,
+      "zzzTemporary2": -2000000000,
+      "zzzTemporary3": 10,
+      "mfbiFreqBandIndPrio": false,
+      "zzzTemporary4": -2000000000,
+      "zzzTemporary5": -2000000000,
+      "zzzTemporary6": -2000000000,
+      "caOffloadingEnabled": false,
+      "prioAdditionalFreqBandList": ["100"],
+      "excludeAdditionalFreqBandList": ["89"]
+    }
+  }
+}
+
+-------------------------------------------------------------------------------------
+
+Example 2 - Modify of a resource
+- In this example an existing "EUtranFrequency" instance is updated changing the value for some of its attributes.
+- The target URI specifies the FDN of the EUtranFrequency instance.
+    https://<customer-domain>/enm-nbi/cm/v1/data/SubNetwork=Europe/ManagedElement=LTE01dg2ERBS00001/ENodeBFunction=1/EUtraNetwork=1/EUtranFrequency=4
+- The "id" value is the EUtranFrequency identifier (eUtranFrequencyId=4).
+- "attributes" is the  list of EUtranFrequency attributes to be modified.
+
+{
+  "EUtranFrequency": [
+    {
+      "id": "4",
+      "attributes": {
+        "arfcnValueEUtranDl": 11,
+        "userLabel": "Modify_PUT"
+      }
+    }
+  ]
+}

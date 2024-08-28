@@ -1,0 +1,5 @@
+Identifies, for attributes with complex data type, specific struct members to be returned. <br>
+The following cases apply : <br>
+- parameter present and value not empty: attribute struct members matching the name are returned <br>
+- parameter absent: all attributes are returned <br>
+- parameter empty ( "fields=" ): only the identifier is returned. <br>

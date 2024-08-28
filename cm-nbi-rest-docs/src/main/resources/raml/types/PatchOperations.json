@@ -1,0 +1,43 @@
+{
+  "PatchOperations": {
+    "title": "Patch operations description",
+    "type": "array",
+    "items": {
+      "type": "object",
+      "properties": {
+        "op": {
+          "$ref": "#/components/schemas/PatchOperationType"
+        },
+        "path": {
+          "type": "string"
+        },
+        "value": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "attributes": {
+                  "type": "object"
+                }
+              }
+            },
+            {
+              "type": "object"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "PatchOperationType": {
+    "type": "string",
+    "enum": [
+      "add",
+      "replace",
+      "remove"
+    ]
+  }
+}

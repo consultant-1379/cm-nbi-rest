@@ -1,0 +1,6 @@
+
+- **BASE_ONLY (default)**: not applicable. </br>
+- **BASE_ALL**: reads all MO instances in the Network. The "scopeLevel" will be ignored if present.</br>
+- **BASE_NTH_LEVEL**: reads all MO instances in the Network on the level indicated by the "scopeLevel". </br>
+- **BASE_SUBTREE**: reads all MO instances in the Network down to and including the level indicated by the "scopeLevel" parameter. </br>
+

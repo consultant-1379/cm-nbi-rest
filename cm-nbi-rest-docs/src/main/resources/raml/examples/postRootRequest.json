@@ -1,0 +1,8 @@
+{
+  "SubNetwork": [{
+    "id": "World",
+    "attributes": {
+      "SubNetworkId": "World"
+    }
+  }]
+}

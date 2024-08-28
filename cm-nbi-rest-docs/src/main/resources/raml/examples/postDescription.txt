@@ -1,0 +1,12 @@
+<p>
+ With HTTP POST method a complete Managed Object instance is created if it does not exist. <br>
+ The target URI identifies the parent MO of the new instance to be created. <br>
+ The message body shall carry the complete representation of the instance to be created: <br>
+ - a list of name/value pairs specifying attribute identifiers and their values; the list must include all the mandatory attributes.
+</p>
+<br>
+URI example to Create the EUtranFrequency=6 instance, child of EUtraNetwork=1:
+
+          https://customer-domain/enm-nbi/cm/v1/data/SubNetwork=Europe/ManagedElement=LTE01dg2ERBS00001/ENodeBFunction=1/EUtraNetwork=1/EUtranFrequency=6
+
+<br>

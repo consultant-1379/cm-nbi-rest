@@ -1,0 +1,6 @@
+
+ScopeType selects MOs depending on relationships with Base Managed Object instance. </br>
+- **BASE_ONLY (default)**: deletes only the base Managed Object instance. </br>
+- **BASE_ALL**: deletes the base Manage Object instance and all of its descendants. </br>
+- **BASE_NTH_LEVEL**: deletes all MOs on the level (indicated by the "scopeLevel") below the base Managed Object, and all of their descendants. </br>
+- **BASE_SUBTREE**: Not Applicable.

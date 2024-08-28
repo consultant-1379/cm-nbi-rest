@@ -1,0 +1,23 @@
+{
+  "ScopeType": {
+    "type": "string",
+    "enum": [
+      "BASE_ONLY",
+      "BASE_NTH_LEVEL",
+      "BASE_SUBTREE",
+      "ASE_ALL"
+    ]
+  },
+  "Scope": {
+    "type": "object",
+    "description": "AAA Scope AAA",
+    "properties": {
+      "scopeType": {
+        "$ref": "#/definitions/ScopeType"
+      },
+      "scopeLevel": {
+        "type": "integer"
+      }
+    }
+  }
+}

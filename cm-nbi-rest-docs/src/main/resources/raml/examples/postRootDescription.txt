@@ -1,0 +1,11 @@
+<p>
+ With HTTP POST method a top root Managed Object instance is created if it does not exist. </br>
+ The message body shall carry the complete representation of the Managed Object to be created: </br>
+ - a list of name/value pairs specifying attribute identifiers and their values; the list must include all the mandatory attributes. </br>
+</p>
+<br>
+URI example to Create the SubNetwork=World instance:
+
+          https://customer-domain/enm-nbi/cm/v1/data
+
+<br>

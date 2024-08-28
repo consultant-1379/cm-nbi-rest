@@ -1,0 +1,23 @@
+<p>
+HTTP GET supports the fetching of MO instances and its attributes.<br>
+The operation allows specifying: <br>
+- scoping ( identification of MOs and children ) , <br>
+- filtering ( selection of Managed Object whose attributes satisfy a provided condition ) <br>
+- output attribute filtering ( display only wanted attributes) <br>
+</p>
+
+<p>
+The target URI identifies the base Managed Object <br>
+- The scope query parameters ( scopeType and scopeLevel ), if present, identify other MOs besides the base Managed Object. <br>
+- The filter query parameter is applied to the set of scoped resources. Only Managed Objects passing the filter criteria are targeted.<br>
+- The attributes and fields query parameters identify the attributes and sub-attributes to be returned. <br>
+</p>
+<br>
+URI examples:
+
+        https://<customer-domain>/enm-nbi/cm/v1/data/SubNetwork=Europe/ManagedElement=LTE01dg2ERBS00001
+        https://<customer-domain>/enm-nbi/cm/v1/data/SubNetwork=Europe/ManagedElement=LTE01dg2ERBS00001/ENodeBFunction=1/AmoFunction=1?scopeType=BASE_ONLY
+        https://<customer-domain>/enm-nbi/cm/v1/data/SubNetwork=Europe/ManagedElement=LTE01dg2ERBS00001/ENodeBFunction=1/Cdma2000Network=1?scopeType=BASE_ALL&filter=/SubNetwork/SubNetwork/SubNetwork/ManagedElement/ENodeBFunction/Cdma2000Network/Cdma2000FreqBand
+        https://<customer-domain>/enm-nbi/cm/v1/data/SubNetwork=Europe/ManagedElement=LTE01dg2ERBS00001/ENodeBFunction=1/Cdma2000Network=1?scopeType=BASE_ALL&filter=//Cdma2000FreqBand
+        https://<customer-domain>/enm-nbi/cm/v1/data/SubNetwork=Europe/ManagedElement=LTE01dg2ERBS00001/ENodeBFunction=1/Cdma2000Network=1/?scopeType=BASE_ALL&filter=//Cdma2000FreqBand[attributes/cdmaBandClass=BAND_CLASS_0]
+        https://<customer-domain>/enm-nbi/cm/v1/data/SubNetwork=Europe/ManagedElement=LTE01dg2ERBS00001/ENodeBFunction=1/Cdma2000Network=1?scopeType=BASE_ALL&filter=//Cdma2000FreqBand&attributes=userLabel

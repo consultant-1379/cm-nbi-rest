@@ -1,0 +1,52 @@
+
+HTTP PATCH method supports create, update or delete operations on single or multiple instances:
+
+|                                  |                                                   |
+|:---------------------------------|: -------------------------------------------------|
+| Single Managed Object instance   | **Media type: application/json-patch+json**       |
+| Multiple Managed Object instance | **Media type: application/3gpp-json-patch+json**  |
+|                                  |                                                   |
+
+The patch request body contains the ordered list of operations to be applied to the instance(s) identified in the target URI. </br>
+Each operation is described by 3 parameters:
+
+|          |                                                     |
+|:---------|:----------------------------------------------------|
+| op       | type of operation (add/replace/remove)              |
+| path     | depending on operation and media type, <br/> it can define an offset to the target Managed Object instance specified in the target URI; <br/> in addition it can define the attribute name on which "replace" operation is executed.    |
+| value    | depending on operation and media type, <br/> it identifies the Managed Object instance to be added or the new value to be replaced.    |
+|          |                                                     |
+
+
+**Media type application/json-patch+json:** </br>
+- PATCH operates on a single instance. </br>
+- 'path' is used only to specify the attributeName when 'op' is **replace**; it must be empty otherwise. </br>
+
+| op       | path                                               | value                                                                                                           |
+|:---------|:---------------------------------------------------|:----------------------------------------------------------------------------------------------------------------|
+| **add**      | empty                                              | A list of name/value pairs specifying attributes and values to be assigned to the new instance |
+| **replace**  | **/attributes/**attributeName                      | attribute value                                                                                                 |
+| **remove**   | empty                                              | not applicable                                                                                                  |
+
+**Media type application/3gpp-json-patch+json:** </br>
+- PATCH operates on multiple instances. </br>
+- 'path' is used to address the relative path of an instance; it can be empty </br>
+- 'path' is used to specify the attributeName when 'op' is **replace**. </br>
+
+| op       | path                                                | value                                                                                                           |
+|:---------|:----------------------------------------------------|:----------------------------------------------------------------------------------------------------------------|
+| **add**      | relativePath                                        | A list of name/value pairs specifying attributes and values to be assigned to the new instance                  |
+| **replace**  | **/**relativePath**#/attributes/**attributeName     | attribute value                                                                                                 |
+| **remove**   | **/**relativePath                                   | not applicable                                                                                                  |
+
+
+<br>
+URI example of patch on Single MO:
+
+          https://customer-domain/enm-nbi/cm/v1/data/SubNetwork=Europe/ManagedElement=LTE01dg2ERBS00001/ENodeBFunction=1/EUtranCellFDD=2
+
+<br>
+URI example of patch on multiple MOs:
+
+          https://customer-domain/enm-nbi/cm/v1/data/SubNetwork=Europe/ManagedElement=LTE01dg2ERBS00001/ENodeBFunction=1
+
